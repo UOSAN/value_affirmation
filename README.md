@@ -43,5 +43,8 @@ Then there is end text displayed for 4s. The end text is
 Placeholder end text
 ```
 
-## Developer documentation
-Created using PsychoPy v2020.1.2
+## Configuration
+
+The task is configured by a CSV file, `conditions.csv`.
+The CSV file must contain two columns: the message to be displayed (`message`)
+and the duration in seconds of the inter-trial interval (`iti`).
