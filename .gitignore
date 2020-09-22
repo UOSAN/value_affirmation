@@ -1,2 +1,8 @@
+# macOS resource files
 .DS_STORE
+
+# PsychoPy output
 data/
+
+# PsychoPy Javascript library files
+html/lib
