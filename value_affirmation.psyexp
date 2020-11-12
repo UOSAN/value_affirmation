@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" ?>
-<PsychoPy2experiment encoding="utf-8" version="2020.2.4">
+<PsychoPy2experiment encoding="utf-8" version="2020.2.5">
   <Settings>
     <Param name="Audio latency priority" updates="None" val="use prefs" valType="str"/>
     <Param name="Audio lib" updates="None" val="use prefs" valType="str"/>
@@ -7,7 +7,7 @@
     <Param name="Data file delimiter" updates="None" val="auto" valType="str"/>
     <Param name="Data filename" updates="None" val="u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])" valType="code"/>
     <Param name="Enable Escape" updates="None" val="True" valType="bool"/>
-    <Param name="Experiment info" updates="None" val="{'participant': '', 'session': '001'}" valType="code"/>
+    <Param name="Experiment info" updates="None" val="{'participant': '', 'run_number': '1'}" valType="code"/>
     <Param name="Force stereo" updates="None" val="True" valType="bool"/>
     <Param name="Full-screen window" updates="None" val="True" valType="bool"/>
     <Param name="HTML path" updates="None" val="html" valType="str"/>
@@ -30,7 +30,7 @@
     <Param name="colorSpace" updates="None" val="rgb" valType="str"/>
     <Param name="expName" updates="None" val="value_affirmation" valType="str"/>
     <Param name="exportHTML" updates="None" val="on Sync" valType="str"/>
-    <Param name="logging level" updates="None" val="exp" valType="code"/>
+    <Param name="logging level" updates="None" val="debug" valType="code"/>
   </Settings>
   <Routines>
     <Routine name="trial">
@@ -123,7 +123,7 @@
         <Param name="storeHistory" updates="constant" val="False" valType="bool"/>
         <Param name="storeRating" updates="constant" val="True" valType="bool"/>
         <Param name="storeRatingTime" updates="constant" val="True" valType="bool"/>
-        <Param name="styles" updates="constant" val="('triangleMarker',)" valType="fixedList"/>
+        <Param name="styles" updates="constant" val="['triangleMarker']" valType="fixedList"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
         <Param name="ticks" updates="constant" val="(1, 2, 3, 4, 5)" valType="list"/>
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
@@ -244,13 +244,33 @@
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
       </ImageComponent>
     </Routine>
+    <Routine name="setup">
+      <CodeComponent name="choose_conditions_file">
+        <Param name="Before Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Before JS Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin Experiment" updates="constant" val="conditions_file = 'conditions.csv'&amp;#10;if expInfo['run_number'] == '0':&amp;#10;    conditions_file = 'conditions_practice.csv'" valType="extendedCode"/>
+        <Param name="Begin JS Experiment" updates="constant" val="conditions_file = &quot;conditions.csv&quot;;&amp;#10;if ((expInfo[&quot;run_number&quot;] === &quot;0&quot;)) {&amp;#10;    conditions_file = &quot;conditions_practice.csv&quot;;&amp;#10;}&amp;#10;" valType="extendedCode"/>
+        <Param name="Begin JS Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Code Type" updates="None" val="Auto-&gt;JS" valType="str"/>
+        <Param name="Each Frame" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Each JS Frame" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End JS Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End JS Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="name" updates="None" val="choose_conditions_file" valType="code"/>
+      </CodeComponent>
+    </Routine>
   </Routines>
   <Flow>
+    <Routine name="setup"/>
     <Routine name="introduction"/>
     <LoopInitiator loopType="TrialHandler" name="trials">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="[OrderedDict([('message', 'value 1 message'), ('iti', 1.8)]), OrderedDict([('message', 'value 2 message'), ('iti', 4.5)]), OrderedDict([('message', 'value 1 message'), ('iti', 2.3)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.0)]), OrderedDict([('message', 'value 1 message'), ('iti', 4.3)]), OrderedDict([('message', 'value 2 message'), ('iti', 4.3)]), OrderedDict([('message', 'value 1 message'), ('iti', 2.7)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.6)]), OrderedDict([('message', 'value 1 message'), ('iti', 4.0)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.4)]), OrderedDict([('message', 'value 1 message'), ('iti', 3.6)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.0)]), OrderedDict([('message', 'value 1 message'), ('iti', 2.3)]), OrderedDict([('message', 'value 2 message'), ('iti', 5.5)]), OrderedDict([('message', 'value 1 message'), ('iti', 1.8)]), OrderedDict([('message', 'value 2 message'), ('iti', 3.2)]), OrderedDict([('message', 'value 1 message'), ('iti', 3.9)]), OrderedDict([('message', 'value 2 message'), ('iti', 2.4)]), OrderedDict([('message', 'value 1 message'), ('iti', 5.0)]), OrderedDict([('message', 'value 2 message'), ('iti', 3.0)]), OrderedDict([('message', 'value 1 message'), ('iti', 5.2)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.0)]), OrderedDict([('message', 'value 1 message'), ('iti', 1.6)]), OrderedDict([('message', 'value 2 message'), ('iti', 3.9)]), OrderedDict([('message', 'value 1 message'), ('iti', 3.0)]), OrderedDict([('message', 'value 2 message'), ('iti', 3.1)]), OrderedDict([('message', 'value 1 message'), ('iti', 4.4)]), OrderedDict([('message', 'value 2 message'), ('iti', 3.1)]), OrderedDict([('message', 'value 1 message'), ('iti', 4.5)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.5)]), OrderedDict([('message', 'value 1 message'), ('iti', 1.8)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.2)]), OrderedDict([('message', 'value 1 message'), ('iti', 1.0)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.6)]), OrderedDict([('message', 'value 1 message'), ('iti', 1.0)]), OrderedDict([('message', 'value 2 message'), ('iti', 4.7)]), OrderedDict([('message', 'value 1 message'), ('iti', 1.1)]), OrderedDict([('message', 'value 2 message'), ('iti', 4.5)]), OrderedDict([('message', 'value 1 message'), ('iti', 3.1)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.1)]), OrderedDict([('message', 'value 1 message'), ('iti', 2.1)]), OrderedDict([('message', 'value 2 message'), ('iti', 2.4)]), OrderedDict([('message', 'value 1 message'), ('iti', 2.7)]), OrderedDict([('message', 'value 2 message'), ('iti', 4.1)]), OrderedDict([('message', 'value 1 message'), ('iti', 5.9)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.4)]), OrderedDict([('message', 'value 1 message'), ('iti', 3.2)]), OrderedDict([('message', 'value 2 message'), ('iti', 4.6)]), OrderedDict([('message', 'value 1 message'), ('iti', 3.4)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.0)]), OrderedDict([('message', 'value 1 message'), ('iti', 3.0)]), OrderedDict([('message', 'value 2 message'), ('iti', 5.3)]), OrderedDict([('message', 'value 1 message'), ('iti', 4.4)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.4)]), OrderedDict([('message', 'value 1 message'), ('iti', 4.1)]), OrderedDict([('message', 'value 2 message'), ('iti', 2.3)]), OrderedDict([('message', 'value 1 message'), ('iti', 5.1)]), OrderedDict([('message', 'value 2 message'), ('iti', 1.5)]), OrderedDict([('message', 'value 1 message'), ('iti', 2.1)]), OrderedDict([('message', 'value 2 message'), ('iti', 4.3)]), OrderedDict([('message', 'value 1 message'), ('iti', 2.5)]), OrderedDict([('message', 'value 2 message'), ('iti', 6.0)]), OrderedDict([('message', 'value 1 message'), ('iti', 1.8)]), OrderedDict([('message', 'value 2 message'), ('iti', 5.4)])]" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="conditions.csv" valType="str"/>
+      <Param name="conditions" updates="None" val="None" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="$conditions_file" valType="str"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
       <Param name="isTrials" updates="None" val="True" valType="bool"/>
       <Param name="loopType" updates="None" val="sequential" valType="str"/>
