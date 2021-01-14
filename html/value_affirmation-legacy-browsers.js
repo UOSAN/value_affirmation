@@ -17,7 +17,42 @@ psychoJS.openWindow({
 
 // store info about the experiment session:
 let expName = 'value_affirmation';  // from the Builder filename that created this script
-let expInfo = {'participant': '', 'run_number': '1'};
+let expInfo = {'participant': '', 'session': '', 'run_number': '1'};
+
+// Start code blocks for 'Before Experiment'
+var _pj;
+
+function _pj_snippets(container) {
+    function in_es6(left, right) {
+        if (((right instanceof Array) || ((typeof right) === "string"))) {
+            return (right.indexOf(left) > (- 1));
+        } else {
+            if (((right instanceof Map) || (right instanceof Set) || (right instanceof WeakMap) || (right instanceof WeakSet))) {
+                return right.has(left);
+            } else {
+                return (left in right);
+            }
+        }
+    }
+    container["in_es6"] = in_es6;
+    return container;
+}
+_pj = {};
+_pj_snippets(_pj);
+rating_keys = ["5", "6", "7", "8", "9"];
+
+var rating;
+function convert_key_to_rating(run_number, key) {
+    var rating;
+    rating = null;
+    if (_pj.in_es6(key, rating_keys)) {
+        rating = Number.parseInt(key);
+        if ((run_number !== "0")) {
+            rating = (rating - 4);
+        }
+    }
+    return rating;
+}
 
 // schedule the experiment:
 psychoJS.schedule(psychoJS.gui.DlgFromDict({
@@ -66,7 +101,7 @@ var frameDur;
 function updateInfo() {
   expInfo['date'] = util.MonotonicClock.getDateStr();  // add a simple timestamp
   expInfo['expName'] = expName;
-  expInfo['psychopyVersion'] = '2020.2.5';
+  expInfo['psychopyVersion'] = '2020.2.10';
   expInfo['OS'] = window.navigator.platform;
 
   // store frame rate of monitor if we can measure it successfully
@@ -85,6 +120,7 @@ function updateInfo() {
 
 var setupClock;
 var conditions_file;
+var instruction_text;
 var introductionClock;
 var introduction_text;
 var key_resp;
@@ -103,8 +139,10 @@ function experimentInit() {
   // Initialize components for Routine "setup"
   setupClock = new util.Clock();
   conditions_file = "conditions.csv";
+  instruction_text = "Calibrating scanner";
   if ((expInfo["run_number"] === "0")) {
       conditions_file = "conditions_practice.csv";
+      instruction_text = "Instructions on how to perform task";
   }
   
   // Initialize components for Routine "introduction"
@@ -112,7 +150,7 @@ function experimentInit() {
   introduction_text = new visual.TextStim({
     win: psychoJS.window,
     name: 'introduction_text',
-    text: 'Placeholder introduction text',
+    text: instruction_text,
     font: 'Helvetica',
     units: undefined, 
     pos: [0, 0], height: 0.05,  wrapWidth: undefined, ori: 0,
@@ -192,6 +230,7 @@ function experimentInit() {
 
 var t;
 var frameN;
+var continueRoutine;
 var setupComponents;
 function setupRoutineBegin(snapshot) {
   return function () {
@@ -199,6 +238,7 @@ function setupRoutineBegin(snapshot) {
     t = 0;
     setupClock.reset(); // clock
     frameN = -1;
+    continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
     // keep track of which components have finished
     setupComponents = [];
@@ -207,19 +247,14 @@ function setupRoutineBegin(snapshot) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
        });
-    // check if the Routine should terminate
-    if (!continueRoutine) {  // a component has requested a forced-end of Routine
-      return Scheduler.Event.NEXT;
-    }
-  };
+    return Scheduler.Event.NEXT;
+  }
 }
 
 
-var continueRoutine;
 function setupRoutineEachFrame(snapshot) {
   return function () {
     //------Loop for each frame of Routine 'setup'-------
-    let continueRoutine = true; // until we're told otherwise
     // get current time
     t = setupClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
@@ -275,7 +310,8 @@ function introductionRoutineBegin(snapshot) {
     t = 0;
     introductionClock.reset(); // clock
     frameN = -1;
-    routineTimer.add(4.000000);
+    continueRoutine = true; // until we're told otherwise
+    routineTimer.add(20.000000);
     // update component parameters for each repeat
     key_resp.keys = undefined;
     key_resp.rt = undefined;
@@ -289,11 +325,8 @@ function introductionRoutineBegin(snapshot) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
        });
-    // check if the Routine should terminate
-    if (!continueRoutine) {  // a component has requested a forced-end of Routine
-      return Scheduler.Event.NEXT;
-    }
-  };
+    return Scheduler.Event.NEXT;
+  }
 }
 
 
@@ -301,7 +334,6 @@ var frameRemains;
 function introductionRoutineEachFrame(snapshot) {
   return function () {
     //------Loop for each frame of Routine 'introduction'-------
-    let continueRoutine = true; // until we're told otherwise
     // get current time
     t = introductionClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
@@ -316,7 +348,7 @@ function introductionRoutineEachFrame(snapshot) {
       introduction_text.setAutoDraw(true);
     }
 
-    frameRemains = 0.0 + 4.0 - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
+    frameRemains = 0.0 + 20 - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
     if ((introduction_text.status === PsychoJS.Status.STARTED || introduction_text.status === PsychoJS.Status.FINISHED) && t >= frameRemains) {
       introduction_text.setAutoDraw(false);
     }
@@ -333,7 +365,7 @@ function introductionRoutineEachFrame(snapshot) {
       psychoJS.window.callOnFlip(function() { key_resp.clearEvents(); });
     }
 
-    frameRemains = 0.0 + 4 - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
+    frameRemains = 0.0 + 20 - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
     if ((key_resp.status === PsychoJS.Status.STARTED || key_resp.status === PsychoJS.Status.FINISHED) && t >= frameRemains) {
       key_resp.status = PsychoJS.Status.FINISHED;
   }
@@ -436,6 +468,7 @@ function trialRoutineBegin(snapshot) {
     t = 0;
     trialClock.reset(); // clock
     frameN = -1;
+    continueRoutine = true; // until we're told otherwise
     routineTimer.add(10.000000);
     // update component parameters for each repeat
     value_message_text.setText(message);
@@ -454,20 +487,15 @@ function trialRoutineBegin(snapshot) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
        });
-    // check if the Routine should terminate
-    if (!continueRoutine) {  // a component has requested a forced-end of Routine
-      return Scheduler.Event.NEXT;
-    }
-  };
+    return Scheduler.Event.NEXT;
+  }
 }
 
 
-var _pj;
-var rating_keys;
+var r;
 function trialRoutineEachFrame(snapshot) {
   return function () {
     //------Loop for each frame of Routine 'trial'-------
-    let continueRoutine = true; // until we're told otherwise
     // get current time
     t = trialClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
@@ -500,29 +528,9 @@ function trialRoutineEachFrame(snapshot) {
     if ((rating_text.status === PsychoJS.Status.STARTED || rating_text.status === PsychoJS.Status.FINISHED) && t >= frameRemains) {
       rating_text.setAutoDraw(false);
     }
-    var _pj;
-    function _pj_snippets(container) {
-        function in_es6(left, right) {
-            if (((right instanceof Array) || ((typeof right) === "string"))) {
-                return (right.indexOf(left) > (- 1));
-            } else {
-                if (((right instanceof Map) || (right instanceof Set) || (right instanceof WeakMap) || (right instanceof WeakSet))) {
-                    return right.has(left);
-                } else {
-                    return (left in right);
-                }
-            }
-        }
-        container["in_es6"] = in_es6;
-        return container;
-    }
-    _pj = {};
-    _pj_snippets(_pj);
-    rating_keys = ["1", "2", "3", "4", "5"];
-    if (_pj.in_es6(value_keyboard.keys, rating_keys)) {
-        value_rating.markerPos = Number.parseInt(value_keyboard.keys);
-        value_rating.rating = value_rating.markerPos;
-    }
+    r = convert_key_to_rating(expInfo["run_number"], value_keyboard.keys);
+    value_rating.markerPos = r;
+    value_rating.rating = r;
     
     
     // *value_rating* updates
@@ -557,7 +565,7 @@ function trialRoutineEachFrame(snapshot) {
   }
 
     if (value_keyboard.status === PsychoJS.Status.STARTED) {
-      let theseKeys = value_keyboard.getKeys({keyList: ['1', '2', '3', '4', '5'], waitRelease: false});
+      let theseKeys = value_keyboard.getKeys({keyList: ['5', '6', '7', '8', '9'], waitRelease: false});
       _value_keyboard_allKeys = _value_keyboard_allKeys.concat(theseKeys);
       if (_value_keyboard_allKeys.length > 0) {
         value_keyboard.keys = _value_keyboard_allKeys[_value_keyboard_allKeys.length - 1].name;  // just the last key pressed
@@ -620,6 +628,7 @@ function itiRoutineBegin(snapshot) {
     t = 0;
     itiClock.reset(); // clock
     frameN = -1;
+    continueRoutine = true; // until we're told otherwise
     // update component parameters for each repeat
     // keep track of which components have finished
     itiComponents = [];
@@ -629,18 +638,14 @@ function itiRoutineBegin(snapshot) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
        });
-    // check if the Routine should terminate
-    if (!continueRoutine) {  // a component has requested a forced-end of Routine
-      return Scheduler.Event.NEXT;
-    }
-  };
+    return Scheduler.Event.NEXT;
+  }
 }
 
 
 function itiRoutineEachFrame(snapshot) {
   return function () {
     //------Loop for each frame of Routine 'iti'-------
-    let continueRoutine = true; // until we're told otherwise
     // get current time
     t = itiClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
@@ -709,6 +714,7 @@ function endRoutineBegin(snapshot) {
     t = 0;
     endClock.reset(); // clock
     frameN = -1;
+    continueRoutine = true; // until we're told otherwise
     routineTimer.add(4.000000);
     // update component parameters for each repeat
     // keep track of which components have finished
@@ -719,18 +725,14 @@ function endRoutineBegin(snapshot) {
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
        });
-    // check if the Routine should terminate
-    if (!continueRoutine) {  // a component has requested a forced-end of Routine
-      return Scheduler.Event.NEXT;
-    }
-  };
+    return Scheduler.Event.NEXT;
+  }
 }
 
 
 function endRoutineEachFrame(snapshot) {
   return function () {
     //------Loop for each frame of Routine 'end'-------
-    let continueRoutine = true; // until we're told otherwise
     // get current time
     t = endClock.getTime();
     frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
