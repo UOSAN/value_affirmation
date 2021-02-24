@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy3 Experiment Builder (v2020.2.10),
-    on Fri Feb  5 15:28:23 2021
+This experiment was created using PsychoPy3 Experiment Builder (v2021.1.0),
+    on Wed Feb 24 10:33:27 2021
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -15,14 +15,14 @@ from __future__ import absolute_import, division
 
 from psychopy import locale_setup
 from psychopy import prefs
-from psychopy import sound, gui, visual, core, data, event, logging, clock
+from psychopy import sound, gui, visual, core, data, event, logging, clock, colors
 from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED,
                                 STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
 
 import numpy as np  # whole numpy lib is available, prepend 'np.'
 from numpy import (sin, cos, tan, log, log10, pi, average,
                    sqrt, std, deg2rad, rad2deg, linspace, asarray)
-from numpy.random import random, randint, normal, shuffle
+from numpy.random import random, randint, normal, shuffle, choice as randchoice
 import os  # handy system and path functions
 import sys  # to get file system encoding
 
@@ -35,8 +35,7 @@ def convert_key_to_rating(run_number, key):
     rating = None
     if key in rating_keys:
         rating = int(key)
-        if run_number != '0':
-            rating = rating - 4
+        rating = rating - 4
 
     return rating
 
@@ -46,7 +45,7 @@ _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 
 # Store info about the experiment session
-psychopyVersion = '2020.2.10'
+psychopyVersion = '2021.1.0'
 expName = 'value_affirmation'  # from the Builder filename that created this script
 expInfo = {'participant': '', 'session': '', 'run_number': '1'}
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
@@ -77,7 +76,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 # Setup the Window
 win = visual.Window(
     size=[2560, 1440], fullscr=True, screen=0, 
-    winType='pyglet', allowGUI=False, allowStencil=False,
+    winType='pyglet', allowGUI=True, allowStencil=False,
     monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
     blendMode='avg', useFBO=True, 
     units='height')
@@ -129,10 +128,11 @@ rating_text = visual.TextStim(win=win, name='rating_text',
     depth=-1.0);
 value_rating = visual.Slider(win=win, name='value_rating',
     size=(1.0, 0.025), pos=(0, -0.3), units=None,
-    labels=['not at all','extremely'], ticks=(1, 2, 3, 4, 5),
-    granularity=0, style=['triangleMarker'],
-    color='LightGray', font='HelveticaBold',
-    flip=False, depth=-3)
+    labels=['not at all','extremely'], ticks=(1, 2, 3, 4, 5), granularity=0,
+    style='rating', styleTweaks=('triangleMarker',), opacity=1,
+    color='LightGray', fillColor='Red', borderColor='White', colorSpace='rgb',
+    font='HelveticaBold', labelHeight=0.05,
+    flip=False, depth=-3, readOnly=False)
 value_keyboard = keyboard.Keyboard()
 
 # Initialize components for Routine "iti"
