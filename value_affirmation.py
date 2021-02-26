@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2021.1.0),
-    on Wed Feb 24 10:33:27 2021
+    on Fri Feb 26 08:48:38 2021
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -131,7 +131,7 @@ value_rating = visual.Slider(win=win, name='value_rating',
     labels=['not at all','extremely'], ticks=(1, 2, 3, 4, 5), granularity=0,
     style='rating', styleTweaks=('triangleMarker',), opacity=1,
     color='LightGray', fillColor='Red', borderColor='White', colorSpace='rgb',
-    font='HelveticaBold', labelHeight=0.05,
+    font='Helvetica', labelHeight=0.05,
     flip=False, depth=-3, readOnly=False)
 value_keyboard = keyboard.Keyboard()
 
@@ -358,7 +358,7 @@ for thisTrial in trials:
             value_message_text.setAutoDraw(True)
         if value_message_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > value_message_text.tStartRefresh + 6.0-frameTolerance:
+            if tThisFlipGlobal > value_message_text.tStartRefresh + 6-frameTolerance:
                 # keep track of stop time/frame for later
                 value_message_text.tStop = t  # not accounting for scr refresh
                 value_message_text.frameNStop = frameN  # exact frame index
@@ -366,7 +366,7 @@ for thisTrial in trials:
                 value_message_text.setAutoDraw(False)
         
         # *rating_text* updates
-        if rating_text.status == NOT_STARTED and tThisFlip >= 6.0-frameTolerance:
+        if rating_text.status == NOT_STARTED and tThisFlip >= 6-frameTolerance:
             # keep track of start time/frame for later
             rating_text.frameNStart = frameN  # exact frame index
             rating_text.tStart = t  # local t and not account for scr refresh
@@ -375,7 +375,7 @@ for thisTrial in trials:
             rating_text.setAutoDraw(True)
         if rating_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > rating_text.tStartRefresh + 4.0-frameTolerance:
+            if tThisFlipGlobal > rating_text.tStartRefresh + 4-frameTolerance:
                 # keep track of stop time/frame for later
                 rating_text.tStop = t  # not accounting for scr refresh
                 rating_text.frameNStop = frameN  # exact frame index
