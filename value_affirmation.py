@@ -112,7 +112,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         end_text_str = ''
         end_text_duration = 0.1
 
-    conditions_file = 'conditions.csv'
+    conditions_file = f'VAFF_{expInfo["participant"]}_Session{expInfo["session"]}_Run{expInfo["run_number"]}.csv'
 
     # session 0 is a practice session
     if expInfo['session'] == '0':
