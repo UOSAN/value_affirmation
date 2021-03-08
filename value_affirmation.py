@@ -85,7 +85,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
     win = visual.Window(
         size=[2560, 1440], fullscr=True, screen=0,
         winType='pyglet', allowGUI=False, allowStencil=False,
-        monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
+        monitor='testMonitor', color=[-1,-1,-1], colorSpace='rgb',
         blendMode='avg', useFBO=True,
         units='height')
     # store frame rate of monitor if we can measure it
