@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" ?>
-<PsychoPy2experiment encoding="utf-8" version="2021.1.0">
+<PsychoPy2experiment encoding="utf-8" version="2021.1.2">
   <Settings>
     <Param name="Audio latency priority" updates="None" val="use prefs" valType="str"/>
     <Param name="Audio lib" updates="None" val="use prefs" valType="str"/>
@@ -26,7 +26,7 @@
     <Param name="Use version" updates="None" val="" valType="str"/>
     <Param name="Window size (pixels)" updates="None" val="[2560, 1440]" valType="code"/>
     <Param name="blendMode" updates="None" val="avg" valType="str"/>
-    <Param name="color" updates="None" val="$[0,0,0]" valType="str"/>
+    <Param name="color" updates="None" val="$[-1,-1,-1]" valType="str"/>
     <Param name="colorSpace" updates="None" val="rgb" valType="str"/>
     <Param name="expName" updates="None" val="value_affirmation" valType="str"/>
     <Param name="exportHTML" updates="None" val="on Sync" valType="str"/>
