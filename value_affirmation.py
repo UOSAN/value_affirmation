@@ -112,11 +112,11 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         end_text_str = ''
         end_text_duration = 0.1
 
-    conditions_file = f'VAFF_{expInfo["participant"]}_Session{expInfo["session"]}_Run{expInfo["run_number"]}.csv'
+    conditions_file = os.path.join('conditions', f'VAFF_{expInfo["participant"]}_Session{expInfo["session"]}_Run{expInfo["run_number"]}.csv')
 
     # session 0 is a practice session
     if expInfo['session'] == '0':
-        conditions_file = 'conditions_practice.csv'
+        conditions_file = os.path.join('conditions', 'conditions_practice.csv')
         start_text_str = 'Practice session for values task'
         start_text_duration = 20
 
