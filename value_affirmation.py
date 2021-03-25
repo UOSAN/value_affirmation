@@ -110,7 +110,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         start_text_str = ''
         start_text_duration = 0.1
         end_text_str = 'The task has ended. Waiting for researcher to start next task.'
-        end_text_duration = 120
+        end_text_duration = 3600
 
     conditions_file = os.path.join('conditions', f'VAFF_{expInfo["participant"]}_Session{expInfo["session"]}_Run{expInfo["run_number"]}.csv')
 
