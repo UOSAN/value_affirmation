@@ -56,7 +56,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
     os.chdir(_thisDir)
 
     # Store info about the experiment session
-    psychopyVersion = '2021.1.0'
+    psychopyVersion = '2021.1.2'
     expName = 'value_affirmation'  # from the Builder filename that created this script
     expInfo = {'participant': participant_id, 'session': session, 'run_number': run_number}
     expInfo['date'] = data.getDateStr()  # add a simple timestamp
@@ -68,12 +68,12 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
 
     # An ExperimentHandler isn't essential but helps with data saving
     thisExp = data.ExperimentHandler(name=expName, version='',
-        extraInfo=expInfo, runtimeInfo=None,
-        originPath='/Users/pnovak2/src/smoking/value_affirmation/value_affirmation.py',
-        savePickle=True, saveWideText=True,
-        dataFileName=filename)
+                                     extraInfo=expInfo, runtimeInfo=None,
+                                     originPath='/Users/pnovak2/src/smoking/value_affirmation/value_affirmation_lastrun.py',
+                                     savePickle=True, saveWideText=True,
+                                     dataFileName=filename)
     # save a log file for detail verbose info
-    logFile = logging.LogFile(filename+'.log', level=logging.DEBUG)
+    logFile = logging.LogFile(filename + '.log', level=logging.DEBUG)
     logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a file
 
     endExpNow = False  # flag for 'escape' or other condition => quit the exp
@@ -85,7 +85,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
     win = visual.Window(
         size=[2560, 1440], fullscr=True, screen=0,
         winType='pyglet', allowGUI=False, allowStencil=False,
-        monitor='testMonitor', color=[-1,-1,-1], colorSpace='rgb',
+        monitor='testMonitor', color=[-1, -1, -1], colorSpace='rgb',
         blendMode='avg', useFBO=True,
         units='height')
     # store frame rate of monitor if we can measure it
@@ -100,7 +100,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
 
     # Initialize components for Routine "setup"
     setupClock = core.Clock()
-
+    is_first = True
     if is_first:
         start_text_str = 'Calibrating scanner'
         start_text_duration = 120
@@ -112,48 +112,56 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         end_text_str = 'The task has ended. Waiting for researcher to start next task.'
         end_text_duration = 3600
 
-    conditions_file = os.path.join('conditions', f'VAFF_{expInfo["participant"]}_Session{expInfo["session"]}_Run{expInfo["run_number"]}.csv')
+    conditions_file = os.path.join('conditions',
+                                   f'VAFF_{expInfo["participant"]}_Session{expInfo["session"]}_Run{expInfo["run_number"]}.csv')
 
     # session 0 is a practice session
     if expInfo['session'] == '0':
         conditions_file = os.path.join('conditions', 'conditions_practice.csv')
-        start_text_str = 'Practice session for values task'
+        start_text_str = 'Practice for message task'
         start_text_duration = 20
 
     # Initialize components for Routine "instructions"
     instructionsClock = core.Clock()
+    title_text = visual.TextStim(win=win, name='title_text',
+                                 text='The Message Task',
+                                 font='Open Sans',
+                                 pos=(0, 0), height=0.1, wrapWidth=None, ori=0.0,
+                                 color='white', colorSpace='rgb', opacity=None,
+                                 languageStyle='LTR',
+                                 depth=0.0);
     start_text = visual.TextStim(win=win, name='start_text',
-        text=start_text_str,
-        font='Helvetica',
-        pos=(0, 0), height=0.05, wrapWidth=None, ori=0,
-        color='white', colorSpace='rgb', opacity=1,
-        languageStyle='LTR',
-        depth=0.0);
+                                 text=start_text_str,
+                                 font='Helvetica',
+                                 pos=(0, 0), height=0.05, wrapWidth=None, ori=0,
+                                 color='white', colorSpace='rgb', opacity=1,
+                                 languageStyle='LTR',
+                                 depth=-1.0);
     start_trigger = keyboard.Keyboard()
 
     # Initialize components for Routine "trial"
     trialClock = core.Clock()
     value_message_text = visual.TextStim(win=win, name='value_message_text',
-        text='default text',
-        font='Helvetica',
-        pos=(0, 0), height=0.05, wrapWidth=None, ori=0,
-        color='white', colorSpace='rgb', opacity=1,
-        languageStyle='LTR',
-        depth=0.0);
+                                         text='',
+                                         font='Helvetica',
+                                         pos=(0, 0), height=0.05, wrapWidth=None, ori=0,
+                                         color='white', colorSpace='rgb', opacity=1,
+                                         languageStyle='LTR',
+                                         depth=0.0);
     rating_text = visual.TextStim(win=win, name='rating_text',
-        text='How helpful is this message to help you quit smoking?',
-        font='Helvetica',
-        pos=(0, 0.2), height=0.05, wrapWidth=None, ori=0,
-        color='white', colorSpace='rgb', opacity=1,
-        languageStyle='LTR',
-        depth=-1.0);
+                                  text='How helpful is this message to help you quit smoking?',
+                                  font='Helvetica',
+                                  pos=(0, 0.2), height=0.05, wrapWidth=None, ori=0,
+                                  color='white', colorSpace='rgb', opacity=1,
+                                  languageStyle='LTR',
+                                  depth=-1.0);
     value_rating = visual.Slider(win=win, name='value_rating',
-        size=(1.0, 0.025), pos=(0, -0.3), units=None,
-        labels=['not at all','extremely'], ticks=(1, 2, 3, 4, 5), granularity=0,
-        style='rating', styleTweaks=('triangleMarker',), opacity=1,
-        color='LightGray', fillColor='Red', borderColor='White', colorSpace='rgb',
-        font='Helvetica', labelHeight=0.05,
-        flip=False, depth=-3, readOnly=False)
+                                 size=(1.0, 0.025), pos=(0, -0.3), units=None,
+                                 labels=['not at all', 'extremely'], ticks=(1, 2, 3, 4, 5), granularity=0,
+                                 style='rating', styleTweaks=('triangleMarker',), opacity=1,
+                                 color='LightGray', fillColor='Red', borderColor='White', colorSpace='rgb',
+                                 font='Helvetica', labelHeight=0.05,
+                                 flip=False, depth=-3, readOnly=False)
     value_keyboard = keyboard.Keyboard()
 
     # Initialize components for Routine "iti"
@@ -163,19 +171,19 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         name='intertrial_interval',
         image=None, mask=None,
         ori=0, pos=(0, 0), size=(0.5, 0.5),
-        color=[1,1,1], colorSpace='rgb', opacity=1,
+        color=[1, 1, 1], colorSpace='rgb', opacity=1,
         flipHoriz=False, flipVert=False,
         texRes=128, interpolate=True, depth=0.0)
 
     # Initialize components for Routine "end"
     endClock = core.Clock()
     end_text = visual.TextStim(win=win, name='end_text',
-        text=end_text_str,
-        font='Helvetica',
-        pos=(0, 0), height=0.05, wrapWidth=None, ori=0,
-        color='white', colorSpace='rgb', opacity=1,
-        languageStyle='LTR',
-        depth=0.0);
+                               text=end_text_str,
+                               font='Helvetica',
+                               pos=(0, 0), height=0.05, wrapWidth=None, ori=0,
+                               color='white', colorSpace='rgb', opacity=1,
+                               languageStyle='LTR',
+                               depth=0.0);
     end_key_resp = keyboard.Keyboard()
 
     # Create some handy timers
@@ -240,7 +248,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
     start_trigger.rt = []
     _start_trigger_allKeys = []
     # keep track of which components have finished
-    instructionsComponents = [start_text, start_trigger]
+    instructionsComponents = [title_text, start_text, start_trigger]
     for thisComponent in instructionsComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
@@ -263,8 +271,25 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
 
+        # *title_text* updates
+        if title_text.status == NOT_STARTED and tThisFlip >= 0.0 - frameTolerance:
+            # keep track of start time/frame for later
+            title_text.frameNStart = frameN  # exact frame index
+            title_text.tStart = t  # local t and not account for scr refresh
+            title_text.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(title_text, 'tStartRefresh')  # time at next scr refresh
+            title_text.setAutoDraw(True)
+        if title_text.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > title_text.tStartRefresh + 2.0 - frameTolerance:
+                # keep track of stop time/frame for later
+                title_text.tStop = t  # not accounting for scr refresh
+                title_text.frameNStop = frameN  # exact frame index
+                win.timeOnFlip(title_text, 'tStopRefresh')  # time at next scr refresh
+                title_text.setAutoDraw(False)
+
         # *start_text* updates
-        if start_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        if start_text.status == NOT_STARTED and tThisFlip >= 2 - frameTolerance:
             # keep track of start time/frame for later
             start_text.frameNStart = frameN  # exact frame index
             start_text.tStart = t  # local t and not account for scr refresh
@@ -273,7 +298,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
             start_text.setAutoDraw(True)
         if start_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > start_text.tStartRefresh + start_text_duration-frameTolerance:
+            if tThisFlipGlobal > start_text.tStartRefresh + start_text_duration - frameTolerance:
                 # keep track of stop time/frame for later
                 start_text.tStop = t  # not accounting for scr refresh
                 start_text.frameNStop = frameN  # exact frame index
@@ -282,7 +307,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
 
         # *start_trigger* updates
         waitOnFlip = False
-        if start_trigger.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        if start_trigger.status == NOT_STARTED and tThisFlip >= 2 - frameTolerance:
             # keep track of start time/frame for later
             start_trigger.frameNStart = frameN  # exact frame index
             start_trigger.tStart = t  # local t and not account for scr refresh
@@ -295,7 +320,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
             win.callOnFlip(start_trigger.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if start_trigger.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > start_trigger.tStartRefresh + start_text_duration-frameTolerance:
+            if tThisFlipGlobal > start_trigger.tStartRefresh + start_text_duration - frameTolerance:
                 # keep track of stop time/frame for later
                 start_trigger.tStop = t  # not accounting for scr refresh
                 start_trigger.frameNStop = frameN  # exact frame index
@@ -331,14 +356,16 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
     for thisComponent in instructionsComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
+    thisExp.addData('title_text.started', title_text.tStartRefresh)
+    thisExp.addData('title_text.stopped', title_text.tStopRefresh)
     # the Routine "instructions" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
 
     # set up handler to look after randomisation of conditions etc
     trials = data.TrialHandler(nReps=1, method='sequential',
-        extraInfo=expInfo, originPath=-1,
-        trialList=data.importConditions(conditions_file),
-        seed=None, name='trials')
+                               extraInfo=expInfo, originPath=-1,
+                               trialList=data.importConditions(conditions_file),
+                               seed=None, name='trials')
     thisExp.addLoop(trials)  # add the loop to the experiment
 
     for thisTrial in trials:
@@ -378,7 +405,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
             # update/draw components on each frame
 
             # *value_message_text* updates
-            if value_message_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            if value_message_text.status == NOT_STARTED and tThisFlip >= 0.0 - frameTolerance:
                 # keep track of start time/frame for later
                 value_message_text.frameNStart = frameN  # exact frame index
                 value_message_text.tStart = t  # local t and not account for scr refresh
@@ -387,7 +414,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
                 value_message_text.setAutoDraw(True)
             if value_message_text.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > value_message_text.tStartRefresh + 6-frameTolerance:
+                if tThisFlipGlobal > value_message_text.tStartRefresh + 6 - frameTolerance:
                     # keep track of stop time/frame for later
                     value_message_text.tStop = t  # not accounting for scr refresh
                     value_message_text.frameNStop = frameN  # exact frame index
@@ -395,7 +422,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
                     value_message_text.setAutoDraw(False)
 
             # *rating_text* updates
-            if rating_text.status == NOT_STARTED and tThisFlip >= 6-frameTolerance:
+            if rating_text.status == NOT_STARTED and tThisFlip >= 6 - frameTolerance:
                 # keep track of start time/frame for later
                 rating_text.frameNStart = frameN  # exact frame index
                 rating_text.tStart = t  # local t and not account for scr refresh
@@ -404,7 +431,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
                 rating_text.setAutoDraw(True)
             if rating_text.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > rating_text.tStartRefresh + 4-frameTolerance:
+                if tThisFlipGlobal > rating_text.tStartRefresh + 4 - frameTolerance:
                     # keep track of stop time/frame for later
                     rating_text.tStop = t  # not accounting for scr refresh
                     rating_text.frameNStop = frameN  # exact frame index
@@ -417,9 +444,8 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
             # confirm rating by setting to current markerPos
             value_rating.rating = r
 
-
             # *value_rating* updates
-            if value_rating.status == NOT_STARTED and tThisFlip >= 6-frameTolerance:
+            if value_rating.status == NOT_STARTED and tThisFlip >= 6 - frameTolerance:
                 # keep track of start time/frame for later
                 value_rating.frameNStart = frameN  # exact frame index
                 value_rating.tStart = t  # local t and not account for scr refresh
@@ -428,7 +454,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
                 value_rating.setAutoDraw(True)
             if value_rating.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > value_rating.tStartRefresh + 4-frameTolerance:
+                if tThisFlipGlobal > value_rating.tStartRefresh + 4 - frameTolerance:
                     # keep track of stop time/frame for later
                     value_rating.tStop = t  # not accounting for scr refresh
                     value_rating.frameNStop = frameN  # exact frame index
@@ -437,7 +463,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
 
             # *value_keyboard* updates
             waitOnFlip = False
-            if value_keyboard.status == NOT_STARTED and tThisFlip >= 6-frameTolerance:
+            if value_keyboard.status == NOT_STARTED and tThisFlip >= 6 - frameTolerance:
                 # keep track of start time/frame for later
                 value_keyboard.frameNStart = frameN  # exact frame index
                 value_keyboard.tStart = t  # local t and not account for scr refresh
@@ -450,7 +476,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
                 win.callOnFlip(value_keyboard.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if value_keyboard.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > value_keyboard.tStartRefresh + 4-frameTolerance:
+                if tThisFlipGlobal > value_keyboard.tStartRefresh + 4 - frameTolerance:
                     # keep track of stop time/frame for later
                     value_keyboard.tStop = t  # not accounting for scr refresh
                     value_keyboard.frameNStop = frameN  # exact frame index
@@ -495,7 +521,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         # check responses
         if value_keyboard.keys in ['', [], None]:  # No response was made
             value_keyboard.keys = None
-        trials.addData('value_keyboard.keys',value_keyboard.keys)
+        trials.addData('value_keyboard.keys', value_keyboard.keys)
         if value_keyboard.keys != None:  # we had a response
             trials.addData('value_keyboard.rt', value_keyboard.rt)
         trials.addData('value_keyboard.started', value_keyboard.tStartRefresh)
@@ -529,7 +555,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
             # update/draw components on each frame
 
             # *intertrial_interval* updates
-            if intertrial_interval.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            if intertrial_interval.status == NOT_STARTED and tThisFlip >= 0.0 - frameTolerance:
                 # keep track of start time/frame for later
                 intertrial_interval.frameNStart = frameN  # exact frame index
                 intertrial_interval.tStart = t  # local t and not account for scr refresh
@@ -538,7 +564,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
                 intertrial_interval.setAutoDraw(True)
             if intertrial_interval.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > intertrial_interval.tStartRefresh + thisTrial['iti']-frameTolerance:
+                if tThisFlipGlobal > intertrial_interval.tStartRefresh + thisTrial['iti'] - frameTolerance:
                     # keep track of stop time/frame for later
                     intertrial_interval.tStop = t  # not accounting for scr refresh
                     intertrial_interval.frameNStop = frameN  # exact frame index
@@ -574,7 +600,6 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
 
     # completed 1 repeats of 'trials'
 
-
     # ------Prepare to start Routine "end"-------
     continueRoutine = True
     # update component parameters for each repeat
@@ -606,7 +631,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         # update/draw components on each frame
 
         # *end_text* updates
-        if end_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        if end_text.status == NOT_STARTED and tThisFlip >= 0.0 - frameTolerance:
             # keep track of start time/frame for later
             end_text.frameNStart = frameN  # exact frame index
             end_text.tStart = t  # local t and not account for scr refresh
@@ -615,7 +640,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
             end_text.setAutoDraw(True)
         if end_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > end_text.tStartRefresh + end_text_duration-frameTolerance:
+            if tThisFlipGlobal > end_text.tStartRefresh + end_text_duration - frameTolerance:
                 # keep track of stop time/frame for later
                 end_text.tStop = t  # not accounting for scr refresh
                 end_text.frameNStop = frameN  # exact frame index
@@ -692,7 +717,7 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
     win.flip()
 
     # these shouldn't be strictly necessary (should auto-save)
-    thisExp.saveAsWideText(filename+'.csv', delim='auto')
+    thisExp.saveAsWideText(filename + '.csv', delim='auto')
     thisExp.saveAsPickle(filename)
     logging.flush()
     # make sure everything is closed down
