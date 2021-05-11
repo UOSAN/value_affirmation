@@ -100,7 +100,6 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
 
     # Initialize components for Routine "setup"
     setupClock = core.Clock()
-    is_first = True
     if is_first:
         start_text_str = 'Calibrating scanner'
         start_text_duration = 120
@@ -147,14 +146,14 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
                                          pos=(0, 0), height=0.05, wrapWidth=None, ori=0,
                                          color='white', colorSpace='rgb', opacity=1,
                                          languageStyle='LTR',
-                                         depth=0.0);
+                                         depth=-1.0);
     rating_text = visual.TextStim(win=win, name='rating_text',
                                   text='How helpful is this message to help you quit smoking?',
                                   font='Helvetica',
                                   pos=(0, 0.2), height=0.05, wrapWidth=None, ori=0,
                                   color='white', colorSpace='rgb', opacity=1,
                                   languageStyle='LTR',
-                                  depth=-1.0);
+                                  depth=-2.0);
     value_rating = visual.Slider(win=win, name='value_rating',
                                  size=(1.0, 0.025), pos=(0, -0.3), units=None,
                                  labels=['not at all', 'extremely'], ticks=(1, 2, 3, 4, 5), granularity=0,
@@ -403,6 +402,12 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
             tThisFlipGlobal = win.getFutureFlipTime(clock=None)
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
+            # Update marker position and slider rating
+            # when there are keypresses of the rating buttons
+            r = convert_key_to_rating(value_keyboard.keys)
+            value_rating.markerPos = r
+            # confirm rating by setting to current markerPos
+            value_rating.rating = r
 
             # *value_message_text* updates
             if value_message_text.status == NOT_STARTED and tThisFlip >= 0.0 - frameTolerance:
@@ -437,12 +442,6 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
                     rating_text.frameNStop = frameN  # exact frame index
                     win.timeOnFlip(rating_text, 'tStopRefresh')  # time at next scr refresh
                     rating_text.setAutoDraw(False)
-            # Update marker position and slider rating
-            # when there are keypresses of the rating buttons
-            r = convert_key_to_rating(value_keyboard.keys)
-            value_rating.markerPos = r
-            # confirm rating by setting to current markerPos
-            value_rating.rating = r
 
             # *value_rating* updates
             if value_rating.status == NOT_STARTED and tThisFlip >= 6 - frameTolerance:
@@ -510,12 +509,14 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
         for thisComponent in trialComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
+        rating_text.tStopRefresh = tThisFlipGlobal
+        value_rating.tStopRefresh = tThisFlipGlobal
+        value_keyboard.tStopRefresh = tThisFlipGlobal
         trials.addData('value_message_text.started', value_message_text.tStartRefresh)
         trials.addData('value_message_text.stopped', value_message_text.tStopRefresh)
         trials.addData('rating_text.started', rating_text.tStartRefresh)
         trials.addData('rating_text.stopped', rating_text.tStopRefresh)
         trials.addData('value_rating.response', value_rating.getRating())
-        trials.addData('value_rating.rt', value_rating.getRT())
         trials.addData('value_rating.started', value_rating.tStartRefresh)
         trials.addData('value_rating.stopped', value_rating.tStopRefresh)
         # check responses
@@ -724,7 +725,6 @@ def vaff(participant_id: str, session: str, run_number: str, is_first: bool):
     thisExp.abort()  # or data files will save again on exit
     win.close()
     core.quit()
-
 
 class Cli:
     def __init__(self):
