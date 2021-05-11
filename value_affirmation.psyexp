@@ -34,6 +34,23 @@
   </Settings>
   <Routines>
     <Routine name="trial">
+      <CodeComponent name="code">
+        <Param name="Before Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Before JS Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin JS Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin JS Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Begin Routine" updates="constant" val="" valType="extendedCode"/>
+        <Param name="Code Type" updates="None" val="Auto-&gt;JS" valType="str"/>
+        <Param name="Each Frame" updates="constant" val="# Update marker position and slider rating&amp;#10;# when there are keypresses of the rating buttons&amp;#10;r = convert_key_to_rating(value_keyboard.keys)&amp;#10;value_rating.markerPos = r&amp;#10;# confirm rating by setting to current markerPos&amp;#10;value_rating.rating = r&amp;#10;" valType="extendedCode"/>
+        <Param name="Each JS Frame" updates="constant" val="r = convert_key_to_rating(value_keyboard.keys);&amp;#10;value_rating.markerPos = r;&amp;#10;value_rating.rating = r;&amp;#10;" valType="extendedCode"/>
+        <Param name="End Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End JS Experiment" updates="constant" val="" valType="extendedCode"/>
+        <Param name="End JS Routine" updates="constant" val="rating_text.tStopRefresh = tThisFlipGlobal;&amp;#10;value_rating.tStopRefresh = tThisFlipGlobal;&amp;#10;value_keyboard.tStopRefresh = tThisFlipGlobal;&amp;#10;" valType="extendedCode"/>
+        <Param name="End Routine" updates="constant" val="rating_text.tStopRefresh = tThisFlipGlobal&amp;#10;value_rating.tStopRefresh = tThisFlipGlobal&amp;#10;value_keyboard.tStopRefresh = tThisFlipGlobal" valType="extendedCode"/>
+        <Param name="disabled" updates="None" val="False" valType="bool"/>
+        <Param name="name" updates="None" val="code" valType="code"/>
+      </CodeComponent>
       <TextComponent name="value_message_text">
         <Param name="color" updates="constant" val="white" valType="str"/>
         <Param name="colorSpace" updates="constant" val="rgb" valType="str"/>
@@ -84,23 +101,6 @@
         <Param name="units" updates="None" val="from exp settings" valType="str"/>
         <Param name="wrapWidth" updates="constant" val="" valType="code"/>
       </TextComponent>
-      <CodeComponent name="code">
-        <Param name="Before Experiment" updates="constant" val="" valType="extendedCode"/>
-        <Param name="Before JS Experiment" updates="constant" val="" valType="extendedCode"/>
-        <Param name="Begin Experiment" updates="constant" val="" valType="extendedCode"/>
-        <Param name="Begin JS Experiment" updates="constant" val="" valType="extendedCode"/>
-        <Param name="Begin JS Routine" updates="constant" val="" valType="extendedCode"/>
-        <Param name="Begin Routine" updates="constant" val="" valType="extendedCode"/>
-        <Param name="Code Type" updates="None" val="Auto-&gt;JS" valType="str"/>
-        <Param name="Each Frame" updates="constant" val="# Update marker position and slider rating&amp;#10;# when there are keypresses of the rating buttons&amp;#10;r = convert_key_to_rating(value_keyboard.keys)&amp;#10;value_rating.markerPos = r&amp;#10;# confirm rating by setting to current markerPos&amp;#10;value_rating.rating = r&amp;#10;" valType="extendedCode"/>
-        <Param name="Each JS Frame" updates="constant" val="r = convert_key_to_rating(value_keyboard.keys);&amp;#10;value_rating.markerPos = r;&amp;#10;value_rating.rating = r;&amp;#10;" valType="extendedCode"/>
-        <Param name="End Experiment" updates="constant" val="" valType="extendedCode"/>
-        <Param name="End JS Experiment" updates="constant" val="" valType="extendedCode"/>
-        <Param name="End JS Routine" updates="constant" val="" valType="extendedCode"/>
-        <Param name="End Routine" updates="constant" val="" valType="extendedCode"/>
-        <Param name="disabled" updates="None" val="False" valType="bool"/>
-        <Param name="name" updates="None" val="code" valType="code"/>
-      </CodeComponent>
       <SliderComponent name="value_rating">
         <Param name="borderColor" updates="constant" val="White" valType="color"/>
         <Param name="color" updates="constant" val="LightGray" valType="str"/>
@@ -129,7 +129,7 @@
         <Param name="stopVal" updates="constant" val="4" valType="code"/>
         <Param name="storeHistory" updates="constant" val="False" valType="bool"/>
         <Param name="storeRating" updates="constant" val="True" valType="bool"/>
-        <Param name="storeRatingTime" updates="constant" val="True" valType="bool"/>
+        <Param name="storeRatingTime" updates="constant" val="False" valType="bool"/>
         <Param name="styleTweaks" updates="constant" val="('triangleMarker',)" valType="list"/>
         <Param name="styles" updates="constant" val="rating" valType="str"/>
         <Param name="syncScreenRefresh" updates="None" val="True" valType="bool"/>
